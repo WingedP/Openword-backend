@@ -27,7 +27,7 @@ exports.readBooks = async function (req, res, next) {
           const page = req.query.page * 1 || 1;
           const limit = req.query.limit * 1 || 2;
           const skip = (page - 1) * limit;
-          const paginationKeys = ["limit", "page", "sort"];
+          const paginationKeys = ["limit", "page", "sort"]; 
           paginationKeys.map(el => delete filters[el]);
     
           let query =  Book.find(filters);
