@@ -2,7 +2,7 @@
 
 const passport=require('./passport')
 
-exports.loginGoogle = passport.authenticate("google")
+exports.loginGoogle = passport.authenticate("google", { scope: [ 'email', 'profile' ] })
 
 exports.googleAuth = function(req, res, next){
     passport.authenticate("google",function(err, user){
