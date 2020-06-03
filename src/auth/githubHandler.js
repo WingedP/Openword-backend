@@ -9,7 +9,8 @@ exports.githubAuth = function(req, res, next){
     if(err) res.send("ERROR");
     // res.send(user)
     // return res.redirect(`https://localhost:3000/?token=${user.tokens.[user.tokens.length-1]}`)
-    return res.redirect (`https://localhost:3000/?token=${user.tokens[user.tokens.length-1]}`)
+    return res.redirect(`https://openword-temp.netlify.app/?token=${user.tokens[user.tokens.length-1]}`)
+
     })(req, res, next);
 }
 
