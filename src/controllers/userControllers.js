@@ -67,7 +67,7 @@ exports.resetPassword= catchAsync( async (req,res,next)=>{
         to: user.email,
         from: 'elysiawepts25@gmail.com',
         subject: 'Forgot password confirmation /reset password request',
-        html: ` Click <a href="{https://localhost:3000/email/${token}}">this link</a> to reset your password.`,
+        html: ` Click <a href="${process.env.CLIENT}/email/${token}">this link</a> to reset your password.`,
     };
     sgMail.send(msg);
     return res.status(200).json({status:"success",data:null});

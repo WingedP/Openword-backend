@@ -54,6 +54,5 @@ const cartSchema = new mongoose.Schema({
 });
 
 
-
-const Booking = mongoose.model("Booking", cartSchema);
-module.exports = Booking;   
+const Cart = mongoose.model("Cart", cartSchema);
+module.exports = Cart;   

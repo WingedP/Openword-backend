@@ -1,10 +1,12 @@
 const router = require("express").Router();
 const {auth}=require("../controllers/authControllers");
-
-const {createCart}=require("../controllers/cartControllers");
+const {validateBook} =require("../middlewares/validate")
+const {createCart , updateCart }=require("../controllers/cartControllers");
 
 router.route("/createcart")
-.post(auth, createCart) 
-router.route("/")
+.post(auth, validateBook , createCart) //create cart
+router.route("/updatecart")
+.post(auth , updateCart) //update cart
+
 
 module.exports = router;

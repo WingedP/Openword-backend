@@ -9,7 +9,8 @@ module.exports = (new google({
     clientID: process.env.GG_ID,
     clientSecret: process.env.GG_SECRET,
     callbackURL: process.env.DOMAIN + process.env.GG_CB,
-    passReqToCallback: true
+    scope:["email","profile"]
+    // passReqToCallback: true
 },
 
 async function (accessToken, refreshToken, profile, cb) {

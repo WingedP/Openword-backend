@@ -5,13 +5,16 @@ const Cart = require("../models/cart");
 const Book = require("../models/book");
 
 exports.createCart = catchAsync(async function(req,res,next){
+
 try{ 
-    console.log("createCart running?")
+    console.log("createCart is running")
 
     const cart = await Cart.create({ 
-    lender: req.body._id, 
-    borrower: req.body._id, 
-    book: req.body._id,
+    borrower:req.user._id,
+    lender: req.book.owner, 
+    book: req.book._id,
+    firstname:req.body.firstname,
+    lastname:req.body.lastname,
     status: req.body.status,    
     from: req.body.from,
     to: req.body.to,
@@ -24,6 +27,22 @@ return res.status(400).json({ status: "fail to CREATE CART.", error: err.message
 }
 })
 
+
+//READ ALL CARTS FROM 1 USER? 
+exports.readUserCart = catchAsync(async function(req,res,next){
+try { 
+const cart = await Cart.find({borrower:req.user._id })
+.populate("user lender borrower","name email title")
+.populate("book","-category -ratingAverage -_id -ratingQuantity")
+;
+    return res.status(200).json({status: "Successfully GET CART DATA!", data: cart });
+    } catch(err){
+    return res.status(400).json({ status: "fail to READ USER CART.", error: err.message })
+    }
+})
+
+
+
 exports.readBookDetail = catchAsync(async function(req,res,next){
 try{
     const { bId } = req.params;
@@ -34,16 +53,5 @@ try{
 catch(err){ res.status(400).json({ status: "fail", message: err.message });}
 })
 
-//READ ALL CARTS FROM 1 USER? 
-exports.readUserCart = catchAsync(async function(req,res,next){
-    try{ const cart = await Cart.find({ 
-        user:req.user._id 
-});
-    return res.status(201).json({status: "Successfully GET CART DATA!", data: cart });
-    } catch(err){
-    return res.status(400).json({ status: "fail to CREATE CART.", error: err.message })
-    }
-})
-
-
 exports.deleteSingleCart=deleteOne(Cart);
+exports.updateCart=updateOne(Cart);

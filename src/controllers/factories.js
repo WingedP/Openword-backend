@@ -39,7 +39,10 @@ exports.updateOne = Model => async (req, res) => {
                 allows = ["name","email","password" ]
                 id = req.params.uId
                 break;
-            
+            case "Cart":
+                allows = ["status"]
+                id = req.params.id
+                    break;
             default:
                 id = req.params.id
         }
